@@ -163,7 +163,7 @@
     <ClInclude Include="Vektor2d.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Beispielprojekt.cpp" />
+    <ClCompile Include="YaDaJe.cpp" />
     <ClCompile Include="Planet.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
