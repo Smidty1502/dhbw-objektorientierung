@@ -19,7 +19,7 @@ public:
 	GameWindow()
 		: Window(800, 600)
 	{
-		set_caption("Gosu Tutorial mit Git Test_Aenderung von David");
+		set_caption("Gosu Tutorial mit Git Test_Aenderung von Davidv2");
 	}
 
 	// wird bis zu 60x pro Sekunde aufgerufen.
