@@ -23,7 +23,7 @@ public:
 	GameWindow()
 		: Window(800, 600)
 	{
-		set_caption("Gosu Tutorial mit Git Test_Aenderung von Davidv2, haksdljads");
+		set_caption("Bestes Game ever!!!");
 	}
 
 	// wird bis zu 60x pro Sekunde aufgerufen.
@@ -44,32 +44,12 @@ public:
 		);
 	}
 
-	/*void jump()
-	{
-		for (int i = 0; i <= 30; i++)
-		{
-			y += 2;
-			Sleep(50);
-		}
-		for (int i = 0; i <= 30; i++)
-		{
-			y -= 2;
-			Sleep(50);
-		}
-	}*/
+	
 
 	// Wird 60x pro Sekunde aufgerufen
 	void update() override
 	{
 		//Dreieck mit Bewegung
-		if (input().down(Gosu::KB_W) && y >= -450)
-		{
-			y -= 5;
-		}
-		if (input().down(Gosu::KB_S) && y <= 100)
-		{
-			y += 5;
-		}
 		if (input().down(Gosu::KB_D) && x <= 700)
 		{
 			x += 5;
@@ -78,13 +58,26 @@ public:
 		{
 			x -= 5;
 		}
-		/*if (input().down(Gosu::KB_W))
+		if (input().down(Gosu::KB_W) && y>= -100)
 		{
-			if (!jmp)
+			if(y<=-95)
 			{
-				jump();
+				jmp = true;
 			}
-		}*/
+			if(!jmp)
+			{
+				y -= 5;
+			}
+		}
+		if((!input().down(Gosu::KB_W) && y< 0) || jmp)
+		{
+			y += 5;
+			jmp = true;
+			if( y== 0)
+			{
+				jmp = false;
+			}
+		}
 	}
 };
 
