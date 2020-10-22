@@ -8,6 +8,8 @@
 #include <iostream>
 #include <Windows.h>
 
+#include "Figur.h"
+#include "Spieler.h"
 #include "Vektor2d.h"
 
 // Simulationsgeschwindigkeit
@@ -43,8 +45,6 @@ public:
 			0.0
 		);
 	}
-
-	
 
 	// Wird 60x pro Sekunde aufgerufen
 	void update() override

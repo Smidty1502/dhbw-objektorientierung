@@ -27,6 +27,12 @@
     <ClInclude Include="Vektor2d.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Figur.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Spieler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -36,6 +42,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="YaDaJe.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Figur.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Spieler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
