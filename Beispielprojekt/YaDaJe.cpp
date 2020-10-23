@@ -21,6 +21,8 @@ bool jmp = false;
 //Auflösung
 const int  fbreite = 1280;
 const int  fhoehe = 720;
+const int bodenEbene = 150;
+
 
 class GameWindow : public Gosu::Window
 {
@@ -50,9 +52,11 @@ public:
 			0 + x, 499 + y, Gosu::Color::GREEN,
 			0.0
 		);
+
+
 		graphics().draw_line(
-			0.0, (fhoehe - 150), Gosu::Color::WHITE,
-			fbreite, (fhoehe - 150), Gosu::Color::WHITE,
+			0.0, (fhoehe - bodenEbene), Gosu::Color::WHITE,
+			fbreite, (fhoehe - bodenEbene), Gosu::Color::WHITE,
 			0.0
 		);
 	}

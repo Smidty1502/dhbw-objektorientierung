@@ -2,7 +2,7 @@
 class Figur
 {
 	int Leben = 0;
-	int spawnX;
-	int spawnY;
+	
+	double pos_x, pos_y;
 };
 

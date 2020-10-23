@@ -67,5 +67,8 @@
     <Image Include="HintergrundGameTest.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Zombie.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
