@@ -18,14 +18,23 @@ int x = 0;
 int y = 0;
 bool jmp = false;
 
+//Auflösung
+const int  fbreite = 1280;
+const int  fhoehe = 720;
+
 class GameWindow : public Gosu::Window
 {
+	std::unique_ptr<Gosu::Image> background_image;
 public:
 	Gosu::Image bild;
-	GameWindow()
-		: Window(800, 600)
+	GameWindow() : Window(fbreite, fhoehe)
+
 	{
 		set_caption("Bestes Game ever!!!");
+
+		//wird getestet
+		/*std::string filename = Gosu::resource_prefix() + "media/HintergrundGameTest.jpg";
+		background_image.reset(new Gosu::Image(filename, Gosu::IF_TILEABLE));*/
 	}
 
 	// wird bis zu 60x pro Sekunde aufgerufen.
@@ -34,14 +43,14 @@ public:
 	void draw() override
 	{
 		graphics().draw_triangle(
-			50 + x, 450 + y, Gosu::Color::GREEN,
+			50 + x, 550 + y, Gosu::Color::GREEN,
 			100 + x, 499 + y, Gosu::Color::GREEN,
 			0 + x, 499 + y, Gosu::Color::GREEN,
 			0.0
 		);
 		graphics().draw_line(
-			0.0, 500, Gosu::Color::WHITE,
-			800, 500, Gosu::Color::WHITE,
+			0.0, (fhoehe - 150), Gosu::Color::WHITE,
+			fbreite, (fhoehe - 150), Gosu::Color::WHITE,
 			0.0
 		);
 	}
@@ -50,7 +59,7 @@ public:
 	void update() override
 	{
 		//Dreieck mit Bewegung
-		if (input().down(Gosu::KB_D) && x <= 700)
+		if (input().down(Gosu::KB_D) && x <= (fbreite -100))
 		{
 			x += 5;
 		}
