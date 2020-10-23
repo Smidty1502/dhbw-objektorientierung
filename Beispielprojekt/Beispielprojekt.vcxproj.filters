@@ -64,7 +64,7 @@
     <Image Include="rakete.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="HintergrundGameTest.jpg">
+    <Image Include="HintergrundGameTest.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

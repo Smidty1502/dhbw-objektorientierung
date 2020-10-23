@@ -25,16 +25,16 @@ const int  fhoehe = 720;
 class GameWindow : public Gosu::Window
 {
 	std::unique_ptr<Gosu::Image> background_image;
+
 public:
 	Gosu::Image bild;
-	GameWindow() : Window(fbreite, fhoehe)
+	GameWindow() 
+		: Window(fbreite, fhoehe)
 
 	{
 		set_caption("Bestes Game ever!!!");
 
-		//wird getestet
-		/*std::string filename = Gosu::resource_prefix() + "media/HintergrundGameTest.jpg";
-		background_image.reset(new Gosu::Image(filename, Gosu::IF_TILEABLE));*/
+		background_image.reset(new Gosu::Image("HintergrundGameTest.png", Gosu::IF_TILEABLE));		//Hintergrund
 	}
 
 	// wird bis zu 60x pro Sekunde aufgerufen.
@@ -42,8 +42,10 @@ public:
 	// dann werden `draw` Aufrufe ausgelassen und die Framerate sinkt
 	void draw() override
 	{
+		background_image->draw(0, 0, 0);
+
 		graphics().draw_triangle(
-			50 + x, 550 + y, Gosu::Color::GREEN,
+			50 + x, 450 + y, Gosu::Color::GREEN,
 			100 + x, 499 + y, Gosu::Color::GREEN,
 			0 + x, 499 + y, Gosu::Color::GREEN,
 			0.0
@@ -53,6 +55,30 @@ public:
 			fbreite, (fhoehe - 150), Gosu::Color::WHITE,
 			0.0
 		);
+	}
+
+	void ask_KB_W()		//Tastaturabfrage für W
+	{
+		if (input().down(Gosu::KB_W) && y>= -100) //W gedrückt und Sprunghöhe nicht erreicht
+		{
+			if(y<=-95)
+			{
+				jmp = true;
+			}
+			if(!jmp)
+			{
+				y -= 5;		//Sprung
+			}
+		}
+		if((!input().down(Gosu::KB_W) && y< 0) || jmp)	//W nicht gedrückt oder Sprung durchgeführt
+		{
+			y += 5;		//Fallen
+			jmp = true;
+			if( y== 0)
+			{
+				jmp = false;
+			}
+		}
 	}
 
 	// Wird 60x pro Sekunde aufgerufen
@@ -67,26 +93,7 @@ public:
 		{
 			x -= 5;
 		}
-		if (input().down(Gosu::KB_W) && y>= -100)
-		{
-			if(y<=-95)
-			{
-				jmp = true;
-			}
-			if(!jmp)
-			{
-				y -= 5;
-			}
-		}
-		if((!input().down(Gosu::KB_W) && y< 0) || jmp)
-		{
-			y += 5;
-			jmp = true;
-			if( y== 0)
-			{
-				jmp = false;
-			}
-		}
+		ask_KB_W();
 	}
 };
 
