@@ -50,7 +50,7 @@ public:
 		background_image->draw(0, 0, 0);
 
 		graphics().draw_triangle(
-			double(testTriangle.fuesseVec.at((testTriangle.breite)/2).get_x()) + x, double(testTriangle.hitboxVec.at(testTriangle.hoehe - 1).get_y()) + y, Gosu::Color::GREEN,
+			double(testTriangle.fuesseVec.at(testTriangle.breite).get_x()) + x, double(testTriangle.hitboxVec.at(testTriangle.hoehe - 1).get_y()) + y, Gosu::Color::GREEN,
 			//50 + x, (fhoehe - bodenEbene) - 50 + y, Gosu::Color::GREEN,
 			100 + x, (fhoehe - bodenEbene) + y, Gosu::Color::GREEN,
 			0 + x, (fhoehe - bodenEbene) + y, Gosu::Color::GREEN,
