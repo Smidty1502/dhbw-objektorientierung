@@ -47,9 +47,9 @@ public:
 		background_image->draw(0, 0, 0);
 
 		graphics().draw_triangle(
-			50 + x, 450 + y, Gosu::Color::GREEN,
-			100 + x, 499 + y, Gosu::Color::GREEN,
-			0 + x, 499 + y, Gosu::Color::GREEN,
+			50 + x, (fhoehe - bodenEbene) - 50 + y, Gosu::Color::GREEN,
+			100 + x, (fhoehe - bodenEbene) + y, Gosu::Color::GREEN,
+			0 + x, (fhoehe - bodenEbene) + y, Gosu::Color::GREEN,
 			0.0
 		);
 
