@@ -11,12 +11,12 @@ public:
 		this->hoehe = hoehe;
 		for (int i = 0; i < breite; i++)
 		{
-			Vektor2d tmpVec(1, 0);
+			Vektor2d tmpVec(i, 0);
 			this->fuesseVec.push_back(fuss + tmpVec);
 		}
 		for (int i = 0; i < hoehe; i++)
 		{
-			Vektor2d tmpVec(0, 1);
+			Vektor2d tmpVec(0, i);
 			this->hitboxVec.push_back(hitbox - tmpVec);
 		}
 	}
