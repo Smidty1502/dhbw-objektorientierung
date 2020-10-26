@@ -23,9 +23,9 @@ const int  fbreite = 1280;
 const int  fhoehe = 720;
 const int bodenEbene = 150;
 
-Vektor2d triangleFuss(0, 500);
-Vektor2d triangleHitbox(50, 500);
-Spieler testTriangle(triangleFuss, 100, triangleHitbox, 50);
+Vektor2d zombieFuss(0, 500);
+Vektor2d zombieHitbox(50, 500);
+Spieler testZombie(zombieFuss, 100, zombieHitbox, 300);
 
 class GameWindow : public Gosu::Window
 {
@@ -35,7 +35,7 @@ public:
 	Gosu::Image bild;
 	GameWindow() 
 		: Window(fbreite, fhoehe)
-
+		
 	{
 		set_caption("Bestes Game ever!!!");
 
@@ -49,13 +49,17 @@ public:
 	{
 		background_image->draw(0, 0, 0);
 
-		graphics().draw_triangle(
-			double(testTriangle.fuesseVec.at((testTriangle.breite) / 2).get_x()) + x, double(testTriangle.hitboxVec.at(testTriangle.hoehe - 1).get_y()) + y, Gosu::Color::GREEN,
+		//graphics().draw_triangle(
+			//double(testTriangle.fuesseVec.at((testTriangle.breite) / 2).get_x()) + x, double(testTriangle.hitboxVec.at(testTriangle.hoehe - 1).get_y()) + y, Gosu::Color::GREEN,
 			//50 + x, (fhoehe - bodenEbene) - 50 + y, Gosu::Color::GREEN,
-			100 + x, (fhoehe - bodenEbene) + y, Gosu::Color::GREEN,
-			0 + x, (fhoehe - bodenEbene) + y, Gosu::Color::GREEN,
-			0.0
-		);
+			//100 + x, (fhoehe - bodenEbene) + y, Gosu::Color::GREEN,
+			//0 + x, (fhoehe - bodenEbene) + y, Gosu::Color::GREEN,
+			//0.0
+		//);
+		testZombie.bild.draw_rot(100, 100, 0.0,
+			0.0,
+			0.5, 0.5);
+
 
 
 		graphics().draw_line(

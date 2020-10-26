@@ -20,29 +20,34 @@ public:
 			this->hitboxVec.push_back(hitbox - tmpVec);
 		}
 	}
-	/*Gosu::Image image;
-	unsigned score;
-	double pos_x, pos_y;
 
-public:
-	Spieler()		:image("Zombie.png")
+
+
+	Gosu::Image bild;
+	unsigned score;
+	
+
+	Gosu::Image.new("Zombie.png")
+	
+
+	Spieler() :bild("Zombie.png")
 	{
-		pos_x = pos_y = 200;
+		this->fuesseVec.at(0).get_x(), this->hitboxVec.at(this->hoehe - 1).get_y();
 	}
 
 
 	void draw() const
 	{
-		image.draw(pos_x, pos_y,1);
+		bild.draw(this->fuesseVec.at(0).get_x(), this->hitboxVec.at(this->hoehe-1).get_y(),1);
 	}
 
 	void move()
 	{
-		pos_x = Gosu::wrap(pos_x, 0.0, fbreite);
-		pos_y = Gosu::wrap(pos_y, 0.0, fhoehe);
+		/*pos_x = Gosu::wrap(pos_x, 0.0, fbreite);
+		pos_y = Gosu::wrap(pos_y, 0.0, fhoehe);*/
 
 		
-	}*/
+	}
 
 };
 
