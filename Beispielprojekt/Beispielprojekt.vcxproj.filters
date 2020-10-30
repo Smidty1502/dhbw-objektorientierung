@@ -33,6 +33,9 @@
     <ClInclude Include="Spieler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Gelaende.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -48,6 +51,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Spieler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Gelaende.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

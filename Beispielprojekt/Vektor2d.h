@@ -11,6 +11,24 @@ public:
 	Vektor2d(double, double);
 	~Vektor2d();
 
+	void set_x(int x)
+	{
+		this->x = x;
+	}
+	void set_y(int y)
+	{
+		this->y = y;
+	}
+
+	void add_x(int x)
+	{
+		this->x += x;
+	}
+	void add_y(int y)
+	{
+		this->y += y;
+	}
+
 	double get_x() const;
 	double get_y() const;
 
