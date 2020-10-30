@@ -179,6 +179,7 @@
     <ClCompile Include="Vektor2d.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="floating-island.png" />
     <Image Include="HintergrundGameTest.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
       </ExcludedFromBuild>

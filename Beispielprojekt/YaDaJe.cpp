@@ -50,7 +50,7 @@ public:
 	{
 		set_caption("Bestes Game ever!!!");
 
-		background_image.reset(new Gosu::Image("HintergrundGameTest.png", Gosu::IF_TILEABLE));		//Hintergrund
+		background_image.reset(new Gosu::Image("floating-island.png", Gosu::IF_TILEABLE));		//Hintergrund
 	}
 
 	// wird bis zu 60x pro Sekunde aufgerufen.
