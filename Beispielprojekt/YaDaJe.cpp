@@ -20,12 +20,12 @@ int y = 0;
 bool jmp = false;
 
 //Auflösung
-const int  fbreite = 1280;
-const int  fhoehe = 720;
-const int bodenEbene = 150;
+const int  fbreite = 1920;
+const int  fhoehe = 1080;
+const int bodenEbene = 936;
 
-Vektor2d triangleFuss(0, 570);
-Vektor2d triangleHitbox(50, 570);
+Vektor2d triangleFuss(0, bodenEbene);
+Vektor2d triangleHitbox(50, bodenEbene);
 Spieler testTriangle(triangleFuss, 100, triangleHitbox, 50);
 
 Vektor2d boden1Vec(50, 500);
@@ -50,7 +50,7 @@ public:
 	{
 		set_caption("Bestes Game ever!!!");
 
-		background_image.reset(new Gosu::Image("floating-island.png", Gosu::IF_TILEABLE));		//Hintergrund
+		background_image.reset(new Gosu::Image("MarioThemevor.png", Gosu::IF_TILEABLE));		//Hintergrund
 	}
 
 	// wird bis zu 60x pro Sekunde aufgerufen.
@@ -71,8 +71,8 @@ public:
 		);
 
 		graphics().draw_line(
-			0.0, (fhoehe - bodenEbene), Gosu::Color::WHITE,
-			fbreite, (fhoehe - bodenEbene), Gosu::Color::WHITE,
+			0.0, (bodenEbene), Gosu::Color::WHITE,
+			fbreite, (bodenEbene), Gosu::Color::WHITE,
 			0.0
 		);
 		for(Gelaende elem: Lvl1bodenVec)
@@ -149,7 +149,7 @@ public:
 				{
 					if (testTriangle.ground == elem.height)
 					{
-						testTriangle.ground = 570;
+						testTriangle.ground = bodenEbene;
 						cout << "ground wird zurueck gesetzt" << endl;
 					}
 					cout << "ausserhalb if" << endl;

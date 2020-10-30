@@ -5,7 +5,7 @@ class Spieler :
 	public Figur
 {
 public:
-	int ground = 570;
+	int ground = 936; //Bodenebene
 	Spieler(Vektor2d fuss, int breite, Vektor2d hitbox, int hoehe)
 	{
 		this->breite = breite;

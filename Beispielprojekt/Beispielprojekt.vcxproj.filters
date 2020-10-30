@@ -70,13 +70,10 @@
     <Image Include="rakete.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="HintergrundGameTest.png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="Zombie.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="floating-island.png">
+    <Image Include="MarioThemevor.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
