@@ -1,6 +1,6 @@
 #pragma once
 #include "Figur.h"
-
+#include <string>
 class Spieler :
 	public Figur
 {
@@ -24,26 +24,17 @@ public:
 			this->hitboxVec.push_back(hitbox - tmpVec);
 		}
 	}
+	string grafik = "Zombie.png";
 
-
-
-	
-	//Gosu::Image bild;
-	//unsigned score;
+	//Spieler() :grafik("Zombie.png")
 	//
-
-	//Gosu::Image.new("Zombie.png")
-	//
-
-	//Spieler() :bild("Zombie.png")
-	//{
-	//	this->fuesseVec.at(0).get_x(), this->hitboxVec.at(this->hoehe - 1).get_y();
+		//this->fuesseVec.at(0).get_x(), this->hitboxVec.at(this->hoehe - 1).get_y();
 	//}
 
 
 	//void draw() const
 	//{
-	//	bild.draw(this->fuesseVec.at(0).get_x(), this->hitboxVec.at(this->hoehe-1).get_y(),1);
+		//Bild.draw(this->fuesseVec.at(0).get_x(), this->hitboxVec.at(this->hoehe - 1).get_y(), 1);
 	//}
 
 	//void move()

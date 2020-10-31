@@ -46,6 +46,7 @@ public:
 	Gosu::Image bild;
 	GameWindow() 
 		: Window(fbreite, fhoehe)
+		, bild(testTriangle.grafik)
 		
 	{
 		set_caption("Bestes Game ever!!!");
@@ -68,6 +69,11 @@ public:
 			double(testTriangle.fussLinks.get_x()), double(testTriangle.fussLinks.get_y()), Gosu::Color::GREEN,
 			//0 + x, (fhoehe - bodenEbene) + y, Gosu::Color::GREEN,
 			0.0
+		);
+
+		bild.draw_rot(testTriangle.fussLinks.get_x(), testTriangle.fussLinks.get_y(), 0.0,
+			0.0,
+			0.5,0.95
 		);
 
 		graphics().draw_line(
