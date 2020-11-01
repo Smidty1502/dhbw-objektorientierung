@@ -15,8 +15,8 @@ public:
 			Vektor2d tmpVec(i, 0);
 			this->fuesseVec.push_back(fuss + tmpVec);
 		}*/
-		this->fussLinks = fuss; 
-		Vektor2d tmpVec(breite, 0);
+		Vektor2d tmpVec((breite/2), 0);
+		this->fussLinks = (fuss - tmpVec);
 		this->fussRechts = (fuss + tmpVec);
 		for (int i = 0; i < hoehe; i++)
 		{
@@ -24,7 +24,7 @@ public:
 			this->hitboxVec.push_back(hitbox - tmpVec);
 		}
 	}
-	string grafik = "Zombie.png";
+	string grafik = "MarioChar.png";
 
 	//Spieler() :grafik("Zombie.png")
 	//

@@ -24,19 +24,39 @@ const int  fbreite = 1920;
 const int  fhoehe = 1080;
 const int bodenEbene = 936;
 
-Vektor2d triangleFuss(0, bodenEbene);
+Vektor2d triangleFuss(20, bodenEbene);
 Vektor2d triangleHitbox(50, bodenEbene);
-Spieler testTriangle(triangleFuss, 100, triangleHitbox, 50);
+Spieler Player1(triangleFuss, 16, triangleHitbox, 41);
 
-Vektor2d boden1Vec(50, 500);
-Gelaende boden1(boden1Vec, 100);
-Vektor2d boden2Vec(200, 480);
-Gelaende boden2(boden2Vec, 100);
-Vektor2d boden3Vec(350, 440);
-Gelaende boden3(boden3Vec, 100);
-Vektor2d boden4Vec(210, 390);
-Gelaende boden4(boden4Vec, 100);
-vector<Gelaende> Lvl1bodenVec{ boden1, boden2, boden3 ,boden4};
+
+
+Vektor2d Mario1vec(1056, 840);
+Gelaende Mario1(Mario1vec, 95);
+Vektor2d Mario2vec(1536, 792);
+Gelaende Mario2(Mario2vec, 95);
+Vektor2d Mario3vec(985, 877);
+Gelaende Mario3(Mario3vec, 1016-985);
+Vektor2d Mario4vec(1207, 807);
+Gelaende Mario4(Mario4vec, 1302-1207);
+Vektor2d Mario5vec(1367, 806);
+Gelaende Mario5(Mario5vec, 1462-1367);
+Vektor2d Mario6vec(1681, 740);
+Gelaende Mario6(Mario6vec, 31);
+Vektor2d Mario7vec(1760, 689);
+Gelaende Mario7(Mario7vec, 159);
+vector<Gelaende> MarioLvl{Mario1, Mario2, Mario3, Mario4, Mario5, Mario6, Mario7 };
+
+
+//Unbenutzt
+//Vektor2d boden1Vec(50, 500);
+//Gelaende boden1(boden1Vec, 100);
+//Vektor2d boden2Vec(200, 480);
+//Gelaende boden2(boden2Vec, 100);
+//Vektor2d boden3Vec(350, 440);
+//Gelaende boden3(boden3Vec, 100);
+//Vektor2d boden4Vec(210, 390);
+//Gelaende boden4(boden4Vec, 100);
+//vector<Gelaende> Lvl1bodenVec{ boden1, boden2, boden3 ,boden4};
 
 class GameWindow : public Gosu::Window
 {
@@ -46,7 +66,7 @@ public:
 	Gosu::Image bild;
 	GameWindow() 
 		: Window(fbreite, fhoehe)
-		, bild(testTriangle.grafik)
+		, bild(Player1.grafik)
 		
 	{
 		set_caption("Bestes Game ever!!!");
@@ -61,17 +81,19 @@ public:
 	{
 		background_image->draw(0, 0, 0);
 
-		graphics().draw_triangle(
-			double(testTriangle.fussLinks.get_x()) + 50, double(testTriangle.hitboxVec.at(testTriangle.hoehe - 1).get_y()), Gosu::Color::GREEN,		// Spitze oben
-			//50 + x, (fhoehe - bodenEbene) - 50 + y, Gosu::Color::GREEN,
-			double(testTriangle.fussRechts.get_x()), double(testTriangle.fussRechts.get_y()), Gosu::Color::GREEN,		//Spitze rechts
-			//100 + x, (fhoehe - bodenEbene) + y, Gosu::Color::GREEN,
-			double(testTriangle.fussLinks.get_x()), double(testTriangle.fussLinks.get_y()), Gosu::Color::GREEN,
-			//0 + x, (fhoehe - bodenEbene) + y, Gosu::Color::GREEN,
-			0.0
-		);
+		//graphics().draw_triangle(
+		//	double(Player1.fussLinks.get_x()) + 8, double(Player1.hitboxVec.at(Player1.hoehe - 1).get_y()), Gosu::Color::RED,		// Spitze oben
+		//	//50 + x, (fhoehe - bodenEbene) - 50 + y, Gosu::Color::GREEN,
+		//	double(Player1.fussRechts.get_x()) -8, double(Player1.fussRechts.get_y()), Gosu::Color::RED,		//Spitze rechts
+		//	//100 + x, (fhoehe - bodenEbene) + y, Gosu::Color::GREEN,
+		//	double(Player1.fussLinks.get_x()), double(Player1.fussLinks.get_y()), Gosu::Color::RED,
+		//	//0 + x, (fhoehe - bodenEbene) + y, Gosu::Color::GREEN,
+		//	0.0
+		//);
+		
+		//Bild einfügen
 
-		bild.draw_rot(testTriangle.fussLinks.get_x(), testTriangle.fussLinks.get_y(), 0.0,
+		bild.draw_rot(Player1.fussLinks.get_x() + (Player1.breite/2) , Player1.fussLinks.get_y(), 5.0, 
 			0.0,
 			0.5,0.95
 		);
@@ -81,7 +103,7 @@ public:
 			fbreite, (bodenEbene), Gosu::Color::WHITE,
 			0.0
 		);
-		for(Gelaende elem: Lvl1bodenVec)
+		for(Gelaende elem: MarioLvl)
 		{
 			graphics().draw_line(
 				elem.left.get_x(), elem.left.get_y(), Gosu::Color::WHITE,
@@ -101,32 +123,32 @@ public:
 			ctr = 0;
 		}
 		
-		if (input().down(Gosu::KB_W) && testTriangle.fussLinks.get_y() >= (-100 + testTriangle.ground) || ctr <= 20) //W gedrückt und Sprunghöhe über ground nicht erreicht
+		if (input().down(Gosu::KB_W) && Player1.fussLinks.get_y() >= (-100 + Player1.ground) || ctr <= 20) //W gedrückt und Sprunghöhe über ground nicht erreicht
 		{	
 			cout << "w Taste" << endl;
-			if((testTriangle.fussLinks.get_y() <= -100 + testTriangle.ground) )
+			if((Player1.fussLinks.get_y() <= -100 + Player1.ground) )
 			{
 				jmp = true;
 				cout << "oben angekommen" << endl;
 			}
 			if(jmp == false)	//Wenn nicht schon gesprungen
 			{
-				testTriangle.hitboxVec.at(testTriangle.hoehe - 1).add_y(-5);
-				testTriangle.fussLinks.add_y(-5);
-				testTriangle.fussRechts.add_y(-5);		//Sprung
+				Player1.hitboxVec.at(Player1.hoehe - 1).add_y(-5);
+				Player1.fussLinks.add_y(-5);
+				Player1.fussRechts.add_y(-5);		//Sprung
 				cout << "springe" << endl;
 			}
 		}
-		if((!input().down(Gosu::KB_W) && testTriangle.fussLinks.get_y() < (testTriangle.ground)) || jmp)	//W nicht gedrückt oder Sprung durchgeführt
+		if((!input().down(Gosu::KB_W) && Player1.fussLinks.get_y() < (Player1.ground)) || jmp)	//W nicht gedrückt oder Sprung durchgeführt
 		{
 
 			cout << "Sprung aufhoeren" << endl;
-			testTriangle.hitboxVec.at(testTriangle.hoehe - 1).add_y(5);
-			testTriangle.fussLinks.add_y(5);
-			testTriangle.fussRechts.add_y(5);		//Fallen
+			Player1.hitboxVec.at(Player1.hoehe - 1).add_y(5);
+			Player1.fussLinks.add_y(5);
+			Player1.fussRechts.add_y(5);		//Fallen
 			jmp = true;
 
-			if( testTriangle.fussLinks.get_y() >= 0 + testTriangle.ground)
+			if( Player1.fussLinks.get_y() >= 0 + Player1.ground)
 			{
 				jmp = false;
 				cout << "jmp false" << endl;
@@ -135,27 +157,27 @@ public:
 	}
 	void ask_boden()
 	{
-		for (Gelaende elem : Lvl1bodenVec)
+		for (Gelaende elem : MarioLvl)
 		{
-			if (testTriangle.fussLinks.get_y() <= elem.left.get_y()) // dreieck ueber Ebene 
+			if (Player1.fussLinks.get_y() <= elem.left.get_y()) // dreieck ueber Ebene 
 			{
 				cout << "ueber Ebene, pruefe X" << endl;
 				ctr = 0;
-				if (((testTriangle.fussLinks.get_x() <= elem.right.get_x()) && (testTriangle.fussLinks.get_x() >= elem.left.get_x()))
-					|| ((testTriangle.fussRechts.get_x() <= elem.right.get_x()) && (testTriangle.fussRechts.get_x() >= elem.left.get_x())))
+				if (((Player1.fussLinks.get_x() <= elem.right.get_x()) && (Player1.fussLinks.get_x() >= elem.left.get_x()))
+					|| ((Player1.fussRechts.get_x() <= elem.right.get_x()) && (Player1.fussRechts.get_x() >= elem.left.get_x())))
 				{
 					cout << "ueber und zwischen Ebene!" << endl;
 					if (jmp)
 					{
 						cout << "neue Ebene! : " << elem.height << endl;
-						testTriangle.ground = elem.height;
+						Player1.ground = elem.height;
 					}
 				}
 				else
 				{
-					if (testTriangle.ground == elem.height)
+					if (Player1.ground == elem.height)
 					{
-						testTriangle.ground = bodenEbene;
+						Player1.ground = bodenEbene;
 						cout << "ground wird zurueck gesetzt" << endl;
 					}
 					cout << "ausserhalb if" << endl;
@@ -167,16 +189,16 @@ public:
 	// Wird 60x pro Sekunde aufgerufen
 	void update() override
 	{
-		//Dreieck mit Bewegung
+		//Spieler mit Bewegung
 		if (input().down(Gosu::KB_D) && x <= (fbreite -100))
 		{
-			testTriangle.fussLinks.add_x(5);
-			testTriangle.fussRechts.add_x(5);
+			Player1.fussLinks.add_x(5);
+			Player1.fussRechts.add_x(5);
 		}
 		if (input().down(Gosu::KB_A) && x >= 0)
 		{
-			testTriangle.fussLinks.add_x(-5);
-			testTriangle.fussRechts.add_x(-5);
+			Player1.fussLinks.add_x(-5);
+			Player1.fussRechts.add_x(-5);
 		}
 		if (jmp || !input().down(Gosu::KB_W))
 		{

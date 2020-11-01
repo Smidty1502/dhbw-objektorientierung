@@ -179,6 +179,7 @@
     <ClCompile Include="Vektor2d.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="MarioChar.png" />
     <Image Include="MarioThemevor.png" />
     <Image Include="planet1.png" />
     <Image Include="planet2.png" />

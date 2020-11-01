@@ -76,5 +76,8 @@
     <Image Include="MarioThemevor.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="MarioChar.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
