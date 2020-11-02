@@ -29,10 +29,12 @@ Vektor2d triangleHitbox(50, bodenEbene);
 Spieler Player1(triangleFuss, 16, triangleHitbox, 41);
 
 
-Vektor2d MarioBodenvec(0, 936);
+Vektor2d MarioBodenvec(0, 935);
 Gelaende MarioBoden(MarioBodenvec, 1920);
 Vektor2d Mario1vec(1056, 840);
-Gelaende Mario1(Mario1vec, 95);
+Gelaende Mario1(Mario1vec, 95); 
+Vektor2d Mario1bvec(1056, 800);
+Gelaende Mario1b(Mario1bvec, 95);
 Vektor2d Mario2vec(1536, 792);
 Gelaende Mario2(Mario2vec, 95);
 Vektor2d Mario3vec(985, 877);
@@ -45,7 +47,7 @@ Vektor2d Mario6vec(1681, 740);
 Gelaende Mario6(Mario6vec, 31);
 Vektor2d Mario7vec(1760, 689);
 Gelaende Mario7(Mario7vec, 159);
-vector<Gelaende> MarioLvl{MarioBoden, Mario1, Mario2, Mario3, Mario4, Mario5, Mario6, Mario7 };
+vector<Gelaende> MarioLvl{MarioBoden, Mario1, Mario1b, Mario2, Mario3, Mario4, Mario5, Mario6, Mario7 };
 
 
 //Unbenutzt
@@ -124,7 +126,7 @@ public:
 			ctr = 0;
 		}
 		
-		if (input().down(Gosu::KB_W) && Player1.fussLinks.get_y() >= (-100 + Player1.ground) || ctr <= 20) //W gedrückt und Sprunghöhe über ground nicht erreicht
+		if (ctr <= 20 && input().down(Gosu::KB_W) && Player1.fussLinks.get_y() >= (-100 + Player1.ground))// || ctr <= 20) //W gedrückt und Sprunghöhe über ground nicht erreicht
 		{	
 			cout << "w Taste" << endl;
 			if((Player1.fussLinks.get_y() <= -100 + Player1.ground) )
@@ -140,7 +142,7 @@ public:
 				cout << "springe" << endl;
 			}
 		}
-		if((!input().down(Gosu::KB_W) && Player1.fussLinks.get_y() < (Player1.ground)) || jmp)	//W nicht gedrückt oder Sprung durchgeführt
+		if((!input().down(Gosu::KB_W) && Player1.fussLinks.get_y() < (Player1.ground)) || jmp || ctr >= 20)	//W nicht gedrückt oder Sprung durchgeführt
 		{
 
 			cout << "Sprung aufhoeren" << endl;
@@ -156,6 +158,9 @@ public:
 			}
 		}
 	}
+	int active_x_left = 0; 
+	int active_x_right = 0;
+	int active_y = 0;
 	void ask_boden()
 	{
 		for (Gelaende elem : MarioLvl)
@@ -167,11 +172,13 @@ public:
 				if (((Player1.fussLinks.get_x() <= elem.right.get_x()) && (Player1.fussLinks.get_x() >= elem.left.get_x()))
 					|| ((Player1.fussRechts.get_x() <= elem.right.get_x()) && (Player1.fussRechts.get_x() >= elem.left.get_x())))
 				{
-					cout << "ueber und zwischen Ebene!" << endl;
-					if (jmp)
+					cout << elem.height<< ": ueber und zwischen Ebene!"  << endl;
+					if (jmp || ((Player1.fussLinks.get_x() > active_x_right) || Player1.fussRechts.get_x() < active_x_left))
 					{
 						cout << "neue Ebene! : " << elem.height << endl;
 						Player1.ground = elem.height;
+						active_x_left = elem.left.get_x();
+						active_x_right = elem.right.get_x();
 					}
 				}
 				else
@@ -203,6 +210,7 @@ public:
 		}
 		if (jmp || !input().down(Gosu::KB_W))
 		{
+			cout << "ask_Boden" << endl;
 			ask_boden();
 		}
 		ask_KB_W();
