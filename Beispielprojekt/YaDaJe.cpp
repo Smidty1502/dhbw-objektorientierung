@@ -97,7 +97,7 @@ public:
 		//Bild einfügen
 
 		bild.draw_rot(Player1.fussLinks.get_x() + (Player1.breite/2) , Player1.fussLinks.get_y(), 5.0, 
-			180.0,
+			0.0,
 			0.5,0.95
 		);
 
