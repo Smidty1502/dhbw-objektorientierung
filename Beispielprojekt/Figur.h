@@ -4,6 +4,8 @@
 #include <Gosu/Gosu.hpp>
 #include <Gosu/AutoLink.hpp>
 #include <Windows.h>
+#include "Projektil.h"
+
 
 using namespace std;
 
@@ -12,10 +14,20 @@ class Figur
 public:
 	int Leben = 0;
 	int breite, hoehe;
-	//vector<Vektor2d> fuesseVec;
 	Vektor2d fussLinks;
 	Vektor2d fussRechts;
-	vector<Vektor2d> hitboxVec;
-	double pos_x, pos_y;
+	Vektor2d hitboxOben;
+	Vektor2d hitboxUnten;
+	
+	/*void shoot(bool links)
+	{ 
+		Vektor2d hitboxP(this->hitboxUnten.get_x(), this->hitboxUnten.get_y() + (hoehe / 2));
+		Projektil projektil(hitboxP, 3, 200);
+		for(int i = 0; i<projektil.range; i = i+projektil.speed)
+		{
+			projektil.move(links);
+		}
+
+	}*/
 };
 
