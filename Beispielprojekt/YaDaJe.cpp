@@ -29,7 +29,8 @@ Vektor2d triangleHitbox(50, bodenEbene);
 Spieler Player1(triangleFuss, 16, triangleHitbox, 41);
 
 
-
+Vektor2d MarioBodenvec(0, 936);
+Gelaende MarioBoden(MarioBodenvec, 1920);
 Vektor2d Mario1vec(1056, 840);
 Gelaende Mario1(Mario1vec, 95);
 Vektor2d Mario2vec(1536, 792);
@@ -44,7 +45,7 @@ Vektor2d Mario6vec(1681, 740);
 Gelaende Mario6(Mario6vec, 31);
 Vektor2d Mario7vec(1760, 689);
 Gelaende Mario7(Mario7vec, 159);
-vector<Gelaende> MarioLvl{Mario1, Mario2, Mario3, Mario4, Mario5, Mario6, Mario7 };
+vector<Gelaende> MarioLvl{MarioBoden, Mario1, Mario2, Mario3, Mario4, Mario5, Mario6, Mario7 };
 
 
 //Unbenutzt
