@@ -118,15 +118,15 @@ public:
 	int ctr = 0;
 	void ask_KB_W()		//Tastaturabfrage für W
 	{
-		//if (input().down(Gosu::KB_W))
+		if (input().down(Gosu::KB_W))
 		{
-			//ctr++;
-		}// else
+			ctr++;
+		} else
 		{
-			//ctr = 0;
+			ctr = 0;
 		}
 		
-		if (input().down(Gosu::KB_W) && Player1.fussLinks.get_y() >= (-100 + Player1.ground))// || ctr <= 20) //W gedrückt und Sprunghöhe über ground nicht erreicht
+		if (ctr <= 20 && input().down(Gosu::KB_W) && Player1.fussLinks.get_y() >= (-100 + Player1.ground))// || ctr <= 20) //W gedrückt und Sprunghöhe über ground nicht erreicht
 		{	
 			cout << "w Taste" << endl;
 			if((Player1.fussLinks.get_y() <= -100 + Player1.ground) )
@@ -142,7 +142,7 @@ public:
 				cout << "springe" << endl;
 			}
 		}
-		if((!input().down(Gosu::KB_W) && Player1.fussLinks.get_y() < (Player1.ground)) || jmp)	//W nicht gedrückt oder Sprung durchgeführt
+		if((!input().down(Gosu::KB_W) && Player1.fussLinks.get_y() < (Player1.ground)) || jmp || ctr >= 20)	//W nicht gedrückt oder Sprung durchgeführt
 		{
 
 			cout << "Sprung aufhoeren" << endl;
