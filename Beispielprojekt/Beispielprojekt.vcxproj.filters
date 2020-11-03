@@ -88,5 +88,8 @@
     <Image Include="MarioCharlinks.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="MarioTheme.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

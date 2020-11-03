@@ -41,26 +41,70 @@ Spieler Player1(PSpawn, 16, PHitbox, 41);
 Vektor2d MarioBodenvec(0, 935);
 Gelaende MarioBoden(MarioBodenvec, 1920);
 Vektor2d Mario1vec(1056, 840);
-Gelaende Mario1(Mario1vec, 95);  
+Gelaende Mario1(Mario1vec, 96);  
 Vektor2d Mario2vec(1536, 792);
-Gelaende Mario2(Mario2vec, 95);
+Gelaende Mario2(Mario2vec, 96);
 Vektor2d Mario3vec(985, 880);
-Gelaende Mario3(Mario3vec, 1016 - 985);
+Gelaende Mario3(Mario3vec, 32);
 Vektor2d Mario4vec(1207, 805);
-Gelaende Mario4(Mario4vec, 1302 - 1207);
+Gelaende Mario4(Mario4vec, 1302 - 1206);
 Vektor2d Mario5vec(1367, 800);
-Gelaende Mario5(Mario5vec, 1462 - 1367);
+Gelaende Mario5(Mario5vec, 1462 - 1366);
 Vektor2d Mario6vec(1681, 740);
-Gelaende Mario6(Mario6vec, 31);
+Gelaende Mario6(Mario6vec, 32);
 Vektor2d Mario7vec(1760, 690);
-Gelaende Mario7(Mario7vec, 159);
+Gelaende Mario7(Mario7vec, 160);
 Vektor2d Mario8vec(1617, 635);
-Gelaende Mario8(Mario8vec, 1712-1617);
+Gelaende Mario8(Mario8vec, 1712-1616);
 Vektor2d Mario9vec(1415, 580);
-Gelaende Mario9(Mario9vec, 1542-1415);
-Vektor2d Mario10vec(1760, 690);
-Gelaende Mario10(Mario10vec, 159);
-vector<Gelaende> MarioLvl{ MarioBoden, Mario1, Mario2, Mario3, Mario4, Mario5, Mario6, Mario7, Mario8, Mario9, Mario10  };
+Gelaende Mario9(Mario9vec, 1542-1414);
+Vektor2d Mario10vec(1243, 560);
+Gelaende Mario10(Mario10vec, 1306-1242);
+Vektor2d Mario11vec(1085, 565);
+Gelaende Mario11(Mario11vec, 1148-1084);
+Vektor2d Mario12vec(966, 535);
+Gelaende Mario12(Mario12vec, 997-965);
+Vektor2d Mario13vec(690, 655);
+Gelaende Mario13(Mario13vec, 849-689);
+Vektor2d Mario14vec(544, 605);
+Gelaende Mario14(Mario14vec, 639-543);
+Vektor2d Mario15vec(118, 570);
+Gelaende Mario15(Mario15vec, 437-117);
+
+Vektor2d Mario16vec(287, 510);
+Gelaende Mario16(Mario16vec, 32);
+Vektor2d Mario17vec(226, 455);
+Gelaende Mario17(Mario17vec, 32);
+Vektor2d Mario18vec(161, 400);
+Gelaende Mario18(Mario18vec, 32);
+Vektor2d Mario19vec(212, 340);
+Gelaende Mario19(Mario19vec, 32);
+Vektor2d Mario20vec(262, 280);
+Gelaende Mario20(Mario20vec, 32);
+Vektor2d Mario21vec(379, 275);
+Gelaende Mario21(Mario21vec, 32);
+
+Vektor2d Mario22vec(407, 215);
+Gelaende Mario22(Mario22vec, 143);
+Vektor2d Mario23vec(598, 235);
+Gelaende Mario23(Mario23vec, 894);
+Vektor2d Mario24vec(555, 170);
+Gelaende Mario24(Mario24vec, 32);
+Vektor2d Mario25vec(710, 165);
+Gelaende Mario25(Mario25vec, 32);
+Vektor2d Mario26vec(834, 155);
+Gelaende Mario26(Mario26vec, 32);
+Vektor2d Mario27vec(964, 140);
+Gelaende Mario27(Mario27vec, 128);
+Vektor2d Mario28vec(1200, 135);
+Gelaende Mario28(Mario28vec, 32);
+Vektor2d Mario29vec(1320, 130);
+Gelaende Mario29(Mario29vec, 32);
+Vektor2d Mario30vec(1425, 90);
+Gelaende Mario30(Mario30vec, 160);
+Vektor2d Mario31vec(1698, 145);
+Gelaende Mario31(Mario31vec, 1918-1698);
+vector<Gelaende> MarioLvl{ MarioBoden, Mario1, Mario2, Mario3, Mario4, Mario5, Mario6, Mario7, Mario8, Mario9, Mario10, Mario11, Mario12, Mario13, Mario14, Mario15, Mario16, Mario17, Mario18, Mario19, Mario20, Mario21, Mario22, Mario23, Mario24, Mario25, Mario26, Mario27, Mario28, Mario29, Mario30, Mario31 };
 
 vector<Projektil> projektilVec;
 
@@ -80,7 +124,7 @@ public:
 	{
 		set_caption("Bestes Game ever!!!");
 
-		background_image.reset(new Gosu::Image("MarioThemevor.png", Gosu::IF_TILEABLE));		//Hintergrund
+		background_image.reset(new Gosu::Image("MarioTheme.png", Gosu::IF_TILEABLE));		//Hintergrund
 	}
 
 
@@ -103,14 +147,15 @@ public:
 				0.5,0.95
 			);
 		}
-		
-		for(Gelaende elem: MarioLvl)
+
+		//Für Fehlererkennung der Karte
+		/*for(Gelaende elem: MarioLvl)
 		{
 			graphics().draw_line(
 				elem.left.get_x(), elem.left.get_y(), Gosu::Color::WHITE,
 				elem.right.get_x(), elem.right.get_y(), Gosu::Color::WHITE,
 				0.0);
-		}
+		}*/
 		
 	}
 
@@ -145,12 +190,14 @@ public:
 		if((!input().down(Gosu::KB_W) && Player1.fussLinks.get_y() < (Player1.ground)) || jmp || ctr >= 15)	//W nicht gedrückt oder Sprung durchgeführt
 		{
 
+
 			cout << "Sprung aufhoeren" << endl;
 			Player1.hitboxOben.add_y(5);
 			Player1.hitboxUnten.add_y(5);
 			Player1.fussLinks.add_y(5);
 			Player1.fussRechts.add_y(5);		//Fallen
 			jmp = true;
+
 
 			if( Player1.fussLinks.get_y() >= 0 + Player1.ground)
 			{
