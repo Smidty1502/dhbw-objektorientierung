@@ -19,15 +19,6 @@ public:
 	Vektor2d hitboxOben;
 	Vektor2d hitboxUnten;
 	
-	/*void shoot(bool links)
-	{ 
-		Vektor2d hitboxP(this->hitboxUnten.get_x(), this->hitboxUnten.get_y() + (hoehe / 2));
-		Projektil projektil(hitboxP, 3, 200);
-		for(int i = 0; i<projektil.range; i = i+projektil.speed)
-		{
-			projektil.move(links);
-		}
-
-	}*/
+	
 };
 

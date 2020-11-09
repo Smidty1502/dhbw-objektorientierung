@@ -11,27 +11,43 @@ public:
 	Vektor2d hitboxLinks, hitboxRechts;
 	string grafik;
 	int speed = 1;
-	int range = 1;
-	Projektil(Vektor2d v, int speed, int range)
+	bool links = false;
+	int maxX;
+
+	Projektil(Vektor2d v, int speed, int range, bool l)
 	{
-		this->range = range;
 		this->speed = speed;
 		this->hitboxLinks = v;
 		v.add_x(5);
 		this->hitboxRechts = v;
+		this->links = l;
+		if (links)
+		{
+			this->maxX = hitboxLinks.get_x() - range;
+		}
+		else
+		{
+			this->maxX = hitboxLinks.get_x() + range;
+		}
+		
 	}
 
-	void move(bool links)
+	void destroy()
 	{
-		if(links)
+		//free(this);
+	}
+
+	void move()
+	{
+		if(this->links)
 		{
-			this->hitboxLinks.add_x(-speed);
-			this->hitboxRechts.add_x(-speed);
+			this->hitboxLinks.add_x(-3);
+			this->hitboxRechts.add_x(-3);
 		}
-		if(!links)
+		if(!this->links)
 		{
-			this->hitboxLinks.add_x(speed);
-			this->hitboxRechts.add_x(speed);
+			this->hitboxLinks.add_x(3);
+			this->hitboxRechts.add_x(3);
 		}
 	}
 };

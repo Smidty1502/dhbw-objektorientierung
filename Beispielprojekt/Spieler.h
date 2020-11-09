@@ -22,7 +22,7 @@ public:
 	}
 	string grafik = "MarioChar.png";
 	string grafikl = "MarioCharlinks.png";
-
+	vector<Projektil> shotsVec;
 	
 	
 };

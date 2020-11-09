@@ -106,7 +106,6 @@ Vektor2d Mario31vec(1698, 145);
 Gelaende Mario31(Mario31vec, 1918-1698);
 vector<Gelaende> MarioLvl{ MarioBoden, Mario1, Mario2, Mario3, Mario4, Mario5, Mario6, Mario7, Mario8, Mario9, Mario10, Mario11, Mario12, Mario13, Mario14, Mario15, Mario16, Mario17, Mario18, Mario19, Mario20, Mario21, Mario22, Mario23, Mario24, Mario25, Mario26, Mario27, Mario28, Mario29, Mario30, Mario31 };
 
-vector<Projektil> projektilVec;
 
 
 class GameWindow : public Gosu::Window
@@ -244,33 +243,102 @@ public:
 		}
 	}
 
+	int shoot_CD = 0;
 	int aktive_projektile = 0;
-	void shoot(bool links, int p_Zahl)
+	int shoot(bool links, int ProjektilIndex)
 	{
-		aktive_projektile++;
 		Vektor2d hb(Player1.hitboxUnten.get_x(),Player1.hitboxUnten.get_y() + (Player1.hoehe / 2));
-		Projektil p(hb, 3, 200);
-		if(aktive_projektile == p_Zahl)
+		Projektil p(hb, 3, 200, links);
+		cout << "Shuss erstellt!" << endl;
+		if(aktive_projektile < 10)
 		{
-			projektilVec.push_back(p);
-		}	
+			aktive_projektile++;
+			Player1.shotsVec.at(ProjektilIndex) = p;
+			cout << "Cooldown hoch" << endl;
+			shoot_CD = 60;
+			return ProjektilIndex + 1;
+		}
 		else
 		{
-			projektilVec.at(p_Zahl);
+			cout << "Projektilvektor voll!" << endl;
 		}
-		
-		for(size_t i=0; i<p.range;i=i+p.speed)
-		{
-			p.move(links);
-			projektilVec.at(p_Zahl) = p;
-		}
-		aktive_projektile--;
 	}
 
+	
+	int ProjektilIndex = 0;
 	bool shot = false;
 	// Wird 60x pro Sekunde aufgerufen
 	void update() override
 	{
+		if (shoot_CD > 0)
+		{
+		shoot_CD--;
+		}
+
+		for (Projektil elem : Player1.shotsVec)
+		{
+			if (elem.links)
+			{
+				if (elem.hitboxLinks.get_x() < elem.maxX)
+				{
+					aktive_projektile--;
+					elem.destroy();
+					cout << "projektil hofftentlich zerstoert" << endl;
+				}
+				else
+				{
+
+					if (elem.links)
+					{
+						cout << "Projektil nach links bewegt zu X: " << elem.hitboxLinks.get_x() << "!" << " Maximal: " << elem.maxX << endl;
+						elem.hitboxLinks.add_x(-3);
+						elem.hitboxRechts.add_x(-3);
+					}
+					if (!elem.links)
+					{
+						cout << "Projektil nach links bewegt zu X: " << elem.hitboxLinks.get_x() << "!" << " Maximal: " << elem.maxX << endl;
+						elem.hitboxLinks.add_x(3);
+						elem.hitboxRechts.add_x(3);
+					}
+
+
+					//cout << "Projektil nach links bewegt zu X: " << elem.hitboxLinks.get_x() << "!" << " Maximal: " << elem.maxX << endl;
+				}
+			}
+			else
+			{
+				if (elem.hitboxRechts.get_x() > elem.maxX)
+				{
+					aktive_projektile--;
+					elem.destroy();
+					cout << "projektil hofftentlich zerstoert" << endl;
+				}
+				else
+				{
+
+					if (elem.links)
+					{
+						cout << "Projektil nach rechts bewegt zu X: " << elem.hitboxRechts.get_x() << "!" << " Maximal: " << elem.maxX << endl;
+						elem.hitboxLinks.add_x(-3);
+						elem.hitboxRechts.add_x(-3);
+					}
+					if (!elem.links)
+					{
+						cout << "Projektil nach rechts bewegt zu X: " << elem.hitboxRechts.get_x() << "!" << " Maximal: " << elem.maxX << endl;
+						elem.hitboxLinks.add_x(3);
+						elem.hitboxRechts.add_x(3);
+					}
+
+
+					//cout << "Projektil nach rechts bewegt zu X: " << elem.hitboxRechts.get_x() << "!" << " Maximal: " << elem.maxX << endl;
+				}
+			}
+		}
+
+
+
+
+
 		//Spieler mit Bewegung
 		if (input().down(Gosu::KB_D) && x <= (fbreite -100))
 		{
@@ -291,13 +359,20 @@ public:
 		}
 		if (jmp || !input().down(Gosu::KB_W))
 		{
-			cout << "ask_Boden" << endl;
+			//cout << "ask_Boden" << endl;
 			ask_boden();
 		}
 		ask_KB_W();
-		if(input().down(Gosu::KB_SPACE) && !shot) // Leer gedrückt und noch nicht geschossen
+		if(input().down(Gosu::KB_SPACE) && shoot_CD == 0) // Leer gedrückt
 		{
-			shoot(gespiegelt, 0);
+			cout << "Leer gedrueckt! Index: " << ProjektilIndex << endl;
+			cout << "Cooldown noch: " << shoot_CD << endl;
+			ProjektilIndex = shoot(gespiegelt, ProjektilIndex);
+			if (ProjektilIndex == 10)
+			{
+				ProjektilIndex = 0;
+			}
+			cout << "Index hoch/runter auf: " << ProjektilIndex << endl;
 		}
 	}
 	
@@ -306,6 +381,20 @@ public:
 // C++ Hauptprogramm
 int main()
 {
+	bool first = true;
+	if (first)
+	{
+		Vektor2d v(0, 0);
+		Projektil p(v, 1, 1, true);
+		for (int i = 0; i < 10; i++)
+		{
+			Player1.shotsVec.push_back(p);
+		}
+		for (int i = 0; i < 10; i++)
+		{
+			Player1.shotsVec.at(i).destroy();
+		}
+	}
 	GameWindow window;
 	window.show();
 }
