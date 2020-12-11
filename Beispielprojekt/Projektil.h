@@ -12,6 +12,7 @@ public:
 	string grafik;
 	int speed = 1;
 	bool links = false;
+	bool fliegt = false;
 	int maxX;
 
 	Projektil(Vektor2d v, int speed, int range, bool l)
@@ -43,12 +44,14 @@ public:
 		{
 			if (this->hitboxRechts.get_x() > this->maxX)
 			{
-				this->hitboxLinks.add_x(-3);
-				this->hitboxRechts.add_x(-3);
+				this->hitboxLinks.add_x(-this->speed);
+				this->hitboxRechts.add_x(-this->speed);
+				this->fliegt = true;
 				return true;
 			}
 			else
 			{
+				this->fliegt = false;
 				return false;
 			}
 		}
@@ -56,12 +59,14 @@ public:
 		{
 			if (this->hitboxLinks.get_x() < this->maxX)
 			{
-				this->hitboxLinks.add_x(3);
-				this->hitboxRechts.add_x(3);
+				this->hitboxLinks.add_x(this->speed);
+				this->hitboxRechts.add_x(this->speed);
+				this->fliegt = true;
 				return true;
 			}
 			else
 			{
+				this->fliegt = false;
 				return false;
 			}
 		}

@@ -116,11 +116,13 @@ class GameWindow : public Gosu::Window
 public:
 	Gosu::Image bild;
 	Gosu::Image bildL;
+	Gosu::Image bullet;
 
 	GameWindow() 
 		: Window(fbreite, fhoehe)
 		, bild(Player1.grafik)
 		, bildL(Player1.grafikl)
+		, bullet("rakete.png")
 	{
 		set_caption("Bestes Game ever!!!");
 
@@ -146,6 +148,15 @@ public:
 				0.0,
 				0.5,0.95
 			);
+		}
+		for (int i = 0;i < 10;i++)
+		{
+			if (Player1.shotsVec.at(i)->fliegt)
+			{
+				bullet.draw_rot(Player1.shotsVec.at(i)->hitboxLinks.get_x(), Player1.shotsVec.at(i)->hitboxLinks.get_y(), 5.0,
+					0, 2,
+					1.5, 1);
+			}
 		}
 
 		//Für Fehlererkennung der Karte
@@ -217,7 +228,7 @@ public:
 		{
 			if (Player1.fussLinks.get_y() <= elem.left.get_y()) // dreieck ueber Ebene 
 			{
-				cout << "ueber Ebene, pruefe X" << endl;
+				//cout << "ueber Ebene, pruefe X" << endl;
 				ctr = 0;
 				if (((Player1.fussLinks.get_x() <= elem.right.get_x()) && (Player1.fussLinks.get_x() >= elem.left.get_x()))
 					|| ((Player1.fussRechts.get_x() <= elem.right.get_x()) && (Player1.fussRechts.get_x() >= elem.left.get_x())))
@@ -251,7 +262,7 @@ public:
 		if(aktive_projektile < 10)
 		{
 			Vektor2d hb(Player1.hitboxUnten.get_x(),Player1.hitboxUnten.get_y() + (Player1.hoehe / 2));
-			Projektil p(hb, 3, 200, links);
+			Projektil p(hb, 10, 400, links);
 			auto uP = make_unique<Projektil>(p);
 			cout << "Shuss erstellt!" << endl;
 			aktive_projektile++;
@@ -292,67 +303,6 @@ public:
 					aktive_projektile--;
 				}
 			}
-		}
-		{
-
-
-
-			/*if (elem.links)
-			{
-				if (elem.hitboxLinks.get_x() < elem.maxX)
-				{
-					aktive_projektile--;
-					elem.destroy();
-					cout << "projektil hofftentlich zerstoert" << endl;
-				}
-				else
-				{
-
-					if (elem.links)
-					{
-						cout << "Projektil nach links bewegt zu X: " << elem.hitboxLinks.get_x() << "!" << " Maximal: " << elem.maxX << endl;
-						elem.hitboxLinks.add_x(-3);
-						elem.hitboxRechts.add_x(-3);
-					}
-					if (!elem.links)
-					{
-						cout << "Projektil nach links bewegt zu X: " << elem.hitboxLinks.get_x() << "!" << " Maximal: " << elem.maxX << endl;
-						elem.hitboxLinks.add_x(3);
-						elem.hitboxRechts.add_x(3);
-					}
-
-
-					//cout << "Projektil nach links bewegt zu X: " << elem.hitboxLinks.get_x() << "!" << " Maximal: " << elem.maxX << endl;
-				}
-			}
-			else
-			{
-				if (elem.hitboxRechts.get_x() > elem.maxX)
-				{
-					aktive_projektile--;
-					elem.destroy();
-					cout << "projektil hofftentlich zerstoert" << endl;
-				}
-				else
-				{
-
-					if (elem.links)
-					{
-						cout << "Projektil nach rechts bewegt zu X: " << elem.hitboxRechts.get_x() << "!" << " Maximal: " << elem.maxX << endl;
-						elem.hitboxLinks.add_x(-3);
-						elem.hitboxRechts.add_x(-3);
-					}
-					if (!elem.links)
-					{
-						cout << "Projektil nach rechts bewegt zu X: " << elem.hitboxRechts.get_x() << "!" << " Maximal: " << elem.maxX << endl;
-						elem.hitboxLinks.add_x(3);
-						elem.hitboxRechts.add_x(3);
-					}
-
-
-					//cout << "Projektil nach rechts bewegt zu X: " << elem.hitboxRechts.get_x() << "!" << " Maximal: " << elem.maxX << endl;
-				}
-			}*/
 		}
 
 
