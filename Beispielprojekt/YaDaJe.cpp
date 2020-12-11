@@ -233,7 +233,7 @@ public:
 				if (((Player1.fussLinks.get_x() <= elem.right.get_x()) && (Player1.fussLinks.get_x() >= elem.left.get_x()))
 					|| ((Player1.fussRechts.get_x() <= elem.right.get_x()) && (Player1.fussRechts.get_x() >= elem.left.get_x())))
 				{
-					cout << elem.height<< ": ueber und zwischen Ebene!"  << endl;
+					//cout << elem.height<< ": ueber und zwischen Ebene!"  << endl;
 					if (jmp || ((Player1.fussLinks.get_x() > active_x_right) || Player1.fussRechts.get_x() < active_x_left))
 					{
 						cout << "neue Ebene! : " << elem.height << endl;
@@ -249,7 +249,7 @@ public:
 						Player1.ground = bodenEbene;
 						cout << "ground wird zurueck gesetzt" << endl;
 					}
-					cout << "ausserhalb if" << endl;
+					//cout << "ausserhalb if" << endl;
 				}
 			}
 		}
@@ -278,11 +278,31 @@ public:
 		}
 	}
 
-	
+	int wT = 0;
 	int ProjektilIndex = 0;
 	// Wird 60x pro Sekunde aufgerufen
 	void update() override
 	{
+		if (Player1.ground == 145)
+		{
+			wT++;
+			cout << "du hast gewonnen :)" << endl;
+			if (wT >= 60)
+			{
+				Player1.hitboxOben.set_x(Player1.breite / 2);
+				Player1.hitboxUnten.set_x(Player1.breite / 2);
+				Player1.fussLinks.set_x(0);
+				Player1.fussRechts.set_x(Player1.breite);
+				Player1.hitboxOben.set_y(-Player1.hoehe + bodenEbene);
+				Player1.hitboxUnten.set_y(bodenEbene);
+				Player1.fussLinks.set_y(bodenEbene);
+				Player1.fussRechts.set_y(bodenEbene);
+				Player1.ground = bodenEbene;
+				gespiegelt = false;
+				wT = 0;
+			}
+
+		}
 		if (shoot_CD > 0)
 		{
 		shoot_CD--;
@@ -305,8 +325,10 @@ public:
 			}
 		}
 
-
-
+		if (input().down(Gosu::KB_P))
+		{
+			cout << "Fuss Links: " << Player1.fussLinks << endl << "Tragendes Gelaende: " << Player1.ground << endl;
+		}
 
 
 		//Spieler mit Bewegung
