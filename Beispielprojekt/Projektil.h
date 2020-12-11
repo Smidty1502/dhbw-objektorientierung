@@ -37,17 +37,33 @@ public:
 		//free(this);
 	}
 
-	void move()
+	bool move()
 	{
 		if(this->links)
 		{
-			this->hitboxLinks.add_x(-3);
-			this->hitboxRechts.add_x(-3);
+			if (this->hitboxRechts.get_x() > this->maxX)
+			{
+				this->hitboxLinks.add_x(-3);
+				this->hitboxRechts.add_x(-3);
+				return true;
+			}
+			else
+			{
+				return false;
+			}
 		}
 		if(!this->links)
 		{
-			this->hitboxLinks.add_x(3);
-			this->hitboxRechts.add_x(3);
+			if (this->hitboxLinks.get_x() < this->maxX)
+			{
+				this->hitboxLinks.add_x(3);
+				this->hitboxRechts.add_x(3);
+				return true;
+			}
+			else
+			{
+				return false;
+			}
 		}
 	}
 };

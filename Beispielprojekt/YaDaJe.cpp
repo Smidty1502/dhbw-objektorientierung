@@ -12,6 +12,7 @@
 #include "Spieler.h"
 #include "Vektor2d.h"
 #include "Gelaende.h"
+#include <memory>
 
 
 // Simulationsgeschwindigkeit
@@ -247,26 +248,27 @@ public:
 	int aktive_projektile = 0;
 	int shoot(bool links, int ProjektilIndex)
 	{
-		Vektor2d hb(Player1.hitboxUnten.get_x(),Player1.hitboxUnten.get_y() + (Player1.hoehe / 2));
-		Projektil p(hb, 3, 200, links);
-		cout << "Shuss erstellt!" << endl;
 		if(aktive_projektile < 10)
 		{
+			Vektor2d hb(Player1.hitboxUnten.get_x(),Player1.hitboxUnten.get_y() + (Player1.hoehe / 2));
+			Projektil p(hb, 3, 200, links);
+			auto uP = make_unique<Projektil>(p);
+			cout << "Shuss erstellt!" << endl;
 			aktive_projektile++;
-			Player1.shotsVec.at(ProjektilIndex) = p;
+			Player1.shotsVec.at(ProjektilIndex) = move(uP);
 			cout << "Cooldown hoch" << endl;
-			shoot_CD = 60;
+			shoot_CD = 20;
 			return ProjektilIndex + 1;
 		}
 		else
 		{
 			cout << "Projektilvektor voll!" << endl;
+			return ProjektilIndex;
 		}
 	}
 
 	
 	int ProjektilIndex = 0;
-	bool shot = false;
 	// Wird 60x pro Sekunde aufgerufen
 	void update() override
 	{
@@ -274,10 +276,28 @@ public:
 		{
 		shoot_CD--;
 		}
-
-		for (Projektil elem : Player1.shotsVec)
+		
+		for (int i = 0; i < 10; i++)
 		{
-			if (elem.links)
+			//Projektil* pP = Player1.shotsVec.at(i).get();
+			if (Player1.shotsVec.at(i)->move())
+			{
+				cout << "Schuss " << i << " bewegt zu " << Player1.shotsVec.at(i)->hitboxLinks.get_x() << "Maximum : " << Player1.shotsVec.at(i)->maxX << endl;
+			}
+			else
+			{
+				//cout << "Schuss " << i << " ueber Maximum"<< endl;
+				if (aktive_projektile > 0)
+				{
+					aktive_projektile--;
+				}
+			}
+		}
+		{
+
+
+
+			/*if (elem.links)
 			{
 				if (elem.hitboxLinks.get_x() < elem.maxX)
 				{
@@ -332,7 +352,7 @@ public:
 
 					//cout << "Projektil nach rechts bewegt zu X: " << elem.hitboxRechts.get_x() << "!" << " Maximal: " << elem.maxX << endl;
 				}
-			}
+			}*/
 		}
 
 
@@ -363,16 +383,19 @@ public:
 			ask_boden();
 		}
 		ask_KB_W();
-		if(input().down(Gosu::KB_SPACE) && shoot_CD == 0) // Leer gedrückt
+		if(input().down(Gosu::KB_SPACE)) // Leer gedrückt
 		{
 			cout << "Leer gedrueckt! Index: " << ProjektilIndex << endl;
 			cout << "Cooldown noch: " << shoot_CD << endl;
-			ProjektilIndex = shoot(gespiegelt, ProjektilIndex);
-			if (ProjektilIndex == 10)
+			if (shoot_CD == 0)
 			{
-				ProjektilIndex = 0;
+				ProjektilIndex = shoot(gespiegelt, ProjektilIndex);
+				if (ProjektilIndex == 10)
+				{
+					ProjektilIndex = 0;
+				}
+				cout << "Index hoch/runter auf: " << ProjektilIndex << endl;
 			}
-			cout << "Index hoch/runter auf: " << ProjektilIndex << endl;
 		}
 	}
 	
@@ -388,11 +411,8 @@ int main()
 		Projektil p(v, 1, 1, true);
 		for (int i = 0; i < 10; i++)
 		{
-			Player1.shotsVec.push_back(p);
-		}
-		for (int i = 0; i < 10; i++)
-		{
-			Player1.shotsVec.at(i).destroy();
+			unique_ptr<Projektil> uP = make_unique<Projektil>(p);
+			Player1.shotsVec.push_back(move(uP));
 		}
 	}
 	GameWindow window;
