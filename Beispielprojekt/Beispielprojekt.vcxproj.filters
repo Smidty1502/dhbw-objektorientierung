@@ -91,13 +91,10 @@
     <Image Include="MarioTheme.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Bullet.jpg">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="gewonnen.png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="Bullet.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Winner1.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

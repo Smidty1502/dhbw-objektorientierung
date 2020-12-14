@@ -157,7 +157,7 @@ public:
 		, bild(Player1.grafik)
 		, bildL(Player1.grafikl)
 		, bullet("Bullet.png")
-		, win("gewonnen.png")
+		, win("winner1.png")
 	{
 		set_caption("Bestes Game ever!!!");
 
@@ -196,7 +196,7 @@ public:
 
 		if (wT >= 1)
 		{
-			win.draw(fbreite / 2 - 500, fhoehe / 2 - 200, 5, 1,1);
+			win.draw(fbreite / 2 - 250, fhoehe / 2 - 200, 5, 1,1);
 		}
 
 		//Für Fehlererkennung der Karte
@@ -327,7 +327,7 @@ public:
 		{
 			wT++;
 			cout << "du hast gewonnen :)" << endl;
-			if (wT >= 60)
+			if (wT >= 180)
 			{
 				Player1.hitboxOben.set_x(Player1.breite / 2);
 				Player1.hitboxUnten.set_x(Player1.breite / 2);
