@@ -106,5 +106,8 @@
     <Image Include="Bowser.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="BowserSwag.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

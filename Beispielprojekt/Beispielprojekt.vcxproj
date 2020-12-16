@@ -183,6 +183,7 @@
     <ClCompile Include="Vektor2d.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="BowserSwag.png" />
     <Image Include="Bullet.png" />
     <Image Include="MarioChar.png" />
     <Image Include="MarioCharlinks.png" />
