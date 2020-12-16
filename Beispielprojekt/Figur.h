@@ -5,6 +5,7 @@
 #include <Gosu/AutoLink.hpp>
 #include <Windows.h>
 #include "Projektil.h"
+#include <string>
 
 
 using namespace std;
@@ -18,7 +19,8 @@ public:
 	Vektor2d fussRechts;
 	Vektor2d hitboxOben;
 	Vektor2d hitboxUnten;
-	
-	
+	string grafikl;
+	string grafik;
+	vector<unique_ptr<Projektil>> shotsVec;
 };
 

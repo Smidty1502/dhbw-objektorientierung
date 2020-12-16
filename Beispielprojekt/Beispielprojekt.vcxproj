@@ -159,6 +159,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Figur.h" />
+    <ClInclude Include="Gegner.h" />
     <ClInclude Include="Gelaende.h" />
     <ClInclude Include="Projektil.h" />
     <ClInclude Include="Spieler.h" />
@@ -168,6 +169,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Figur.cpp" />
+    <ClCompile Include="Gegner.cpp" />
     <ClCompile Include="Gelaende.cpp" />
     <ClCompile Include="Projektil.cpp" />
     <ClCompile Include="Spieler.cpp" />
@@ -181,6 +183,7 @@
     <ClCompile Include="Vektor2d.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Bowser.png" />
     <Image Include="Bullet.png" />
     <Image Include="MarioChar.png" />
     <Image Include="MarioCharlinks.png" />

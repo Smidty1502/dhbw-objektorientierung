@@ -13,16 +13,15 @@ public:
 		this->breite = breite;
 		this->hoehe = hoehe;
 		this->hitboxUnten = hitbox;
-		hitbox.add_y(hoehe);
+		hitbox.add_y(-hoehe);	// war mit plus... Ich glaube aber minus is richtig
 		this->hitboxOben = hitbox;
 		Vektor2d tmpVec((breite/2), 0);
 		this->fussLinks = (Mitte - tmpVec);
 		this->fussRechts = (Mitte + tmpVec);
+		this->grafik = "MarioChar.png";
+		this->grafikl = "MarioCharlinks.png";
 		
 	}
-	string grafik = "MarioChar.png";
-	string grafikl = "MarioCharlinks.png";
-	vector<unique_ptr<Projektil>> shotsVec;
-	
+	int level = 1;
 	
 };
