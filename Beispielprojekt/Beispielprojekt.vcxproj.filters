@@ -97,16 +97,25 @@
     <Image Include="MarioTheme.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Bullet.png">
+    <Image Include="Winner1.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Winner1.png">
+    <Image Include="BowserSwag.png">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Bowser.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="BowserSwag.png">
+    <Image Include="LKugelwilli.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RKugelwilli.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RBullet.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="LBullet.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

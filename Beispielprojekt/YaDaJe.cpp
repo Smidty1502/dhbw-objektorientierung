@@ -33,7 +33,7 @@ bool gespiegelt = false;
 
 //Sprunghöhe
 int sprunghoehe = -65;
-
+double timer = 0;
 
 
 Vektor2d PSpawn(20, bodenEbene);
@@ -41,7 +41,14 @@ Vektor2d PHitbox(50, bodenEbene);
 Spieler Player1(PSpawn, 16, PHitbox, 41);
 Vektor2d PBowserMitte(1880, 145);
 Vektor2d PBowserHitbox(1910, 145);
-Gegner Bowser1(PBowserMitte, 117, PBowserHitbox, 107, "Bowser");
+Gegner Bowser1(PBowserMitte, 117, PBowserHitbox, 107, "BowserSwag");
+Vektor2d PWilliMitte(1800, 691);
+//Gegner KugelWilli()
+
+Gosu::Font font1(20);
+
+
+
 
 Vektor2d MarioBodenvec(0, 935);
 Gelaende MarioBoden(MarioBodenvec, 1920);
@@ -156,14 +163,17 @@ public:
 	Gosu::Image bullet;
 	Gosu::Image win;
 	Gosu::Image bowser;
+	Gosu::Image Willi;
+
 
 	GameWindow() 
 		: Window(fbreite, fhoehe)
 		, bild(Player1.grafik)
 		, bildL(Player1.grafikl)
-		, bullet("Bullet.png")
+		, bullet("RBullet.png")
 		, win("winner1.png")
 		, bowser(Bowser1.grafik)
+		, Willi("RKugelwilli.png")
 	{
 		set_caption("Bestes Game ever!!!");
 
@@ -199,6 +209,10 @@ public:
 					0.25, 0.25);
 			}
 		}
+
+		Willi.draw_rot(200, 200, 0, 0
+			, 0.5, 0.5,
+			0.75, 0.75);
 
 		bowser.draw_rot(Bowser1.fussLinks.get_x(), Bowser1.fussLinks.get_y() - Bowser1.hoehe/2, 0, 0
 			, 0.5, 0.5,
@@ -338,11 +352,20 @@ public:
 		}
 	}
 
+	//void zeit()
+	//{
+	//	//Gosu::Color c = WHITE;
+	//	timer++;
+	//	font1.draw_rel(to_string(timer/60), 30, 50, 1, 1, 1,1,1, 0x11111111, Gosu::AM_DEFAULT);
+	//}
+
 	int wT = 0;
 	int ProjektilIndex = 0;
 	// Wird 60x pro Sekunde aufgerufen
 	void update() override
 	{
+
+		
 		if (Player1.ground == 145 || wT >= 1)
 		{
 			wT++;
@@ -437,6 +460,7 @@ public:
 // C++ Hauptprogramm
 int main()
 {
+	
 	bool first = true;
 	if (first)
 	{
