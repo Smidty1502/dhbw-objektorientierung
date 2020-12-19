@@ -185,6 +185,7 @@
   <ItemGroup>
     <Image Include="Bowser.png" />
     <Image Include="BowserSwag.png" />
+    <Image Include="Kanone.png" />
     <Image Include="LBullet.png" />
     <Image Include="RBullet.png" />
     <Image Include="LKugelwilli.png" />
