@@ -4,8 +4,8 @@
 #include <Gosu/Gosu.hpp>
 #include <Gosu/AutoLink.hpp>
 #include <Windows.h>
-#include "Projektil.h"
 #include <string>
+#include "Projektil.h"
 
 
 using namespace std;
@@ -21,6 +21,5 @@ public:
 	Vektor2d hitboxUnten;
 	string grafikl;
 	string grafik;
-	vector<unique_ptr<Projektil>> shotsVec;
 };
 

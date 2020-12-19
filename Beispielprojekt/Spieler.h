@@ -22,6 +22,7 @@ public:
 		this->grafikl = "MarioCharlinks.png";
 		
 	}
+	vector<unique_ptr<Projektil>> shotsVec;
 	int level = 1;
 	
 };
