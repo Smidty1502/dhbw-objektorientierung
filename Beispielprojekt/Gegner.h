@@ -5,9 +5,11 @@ class Gegner :
 {
 	public:
 	bool alive;
+	string name;
 	//unique_ptr<Projektil> kugelPtr;
-	Gegner(Vektor2d Mitte, int breite, Vektor2d hitbox, int hoehe, string grafik)
+	Gegner(string n, Vektor2d Mitte, int breite, Vektor2d hitbox, int hoehe, string grafik)
 	{
+		this->name = n;
 		//Vektor2d tempVec(0, hoehe / 2);
 		//Projektil kugel(hitbox - tempVec, 5, 1920 /2, true);
 		//kugelPtr = make_unique<Projektil>(kugel);

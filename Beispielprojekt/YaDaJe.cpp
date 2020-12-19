@@ -39,16 +39,33 @@ double timer = 0;
 Vektor2d PSpawn(20, bodenEbene);
 Vektor2d PHitbox(20, bodenEbene);
 Spieler Player1(PSpawn, 16, PHitbox, 41);
+
 Vektor2d PBowserMitte(1880, 145);
 Vektor2d PBowserHitbox(1910, 145);
-Gegner Bowser1(PBowserMitte, 108, PBowserHitbox, 98, "BowserSwag");
-Vektor2d PWilliMitte(1600, 792);
-Vektor2d PWilliHitbox(1579, 792);
-Gegner KugelWilli(PWilliMitte, 43, PWilliHitbox, 50, "Kanone");
-vector<Gegner> Gegnervec{Bowser1, KugelWilli};
-Vektor2d tempVec(0, KugelWilli.hoehe / 2 + 10);
-Projektil kugel(KugelWilli.hitboxUnten - tempVec, 5, 1920 / 2, true);
-unique_ptr<Projektil>kugelPtr = make_unique<Projektil>(kugel);
+Gegner Bowser1("Bowser", PBowserMitte, 108, PBowserHitbox, 98, "BowserSwag");
+
+Vektor2d PWilliMitte1(1600, 792);
+Vektor2d PWilliHitbox1(1579, 792);
+Gegner KugelWilli1("Willi1",PWilliMitte1, 43, PWilliHitbox1, 50, "Kanone");
+
+Vektor2d PWilliMitte2(150, 571);
+Vektor2d PWilliHitbox2(171, 571);
+Gegner KugelWilli2("Willi2", PWilliMitte2, 43, PWilliHitbox2, 50, "Kanone");
+
+Vektor2d PWilliMitte3(1287,236);
+Vektor2d PWilliHitbox3(1265, 236);
+Gegner KugelWilli3("Willi3", PWilliMitte3, 43, PWilliHitbox3, 50, "Kanone");
+
+vector<Gegner> Gegnervec{Bowser1, KugelWilli1, KugelWilli2, KugelWilli3};
+Vektor2d tempVec(0, KugelWilli1.hoehe / 2 + 10);
+
+Projektil kugel1(KugelWilli1.hitboxUnten - tempVec, 5, 1920 / 2, true);
+unique_ptr<Projektil>kugelPtr1 = make_unique<Projektil>(kugel1);
+Projektil kugel2(KugelWilli2.hitboxUnten - tempVec, 5, 1920 / 2, false);
+unique_ptr<Projektil>kugelPtr2 = make_unique<Projektil>(kugel2);
+Projektil kugel3(KugelWilli3.hitboxUnten - tempVec, 5, 1920 / 2, true);
+unique_ptr<Projektil>kugelPtr3 = make_unique<Projektil>(kugel3);
+//vector< unique_ptr<Projektil>> WilliVec{ move(kugelPtr1) };
 
 Gosu::Font font1(20);
 
@@ -169,6 +186,7 @@ public:
 	Gosu::Image win;
 	Gosu::Image bowser;
 	Gosu::Image Willi;
+	Gosu::Image WilliR;
 	Gosu::Image Kanone;
 
 	GameWindow()
@@ -179,13 +197,56 @@ public:
 		, win("winner1.png")
 		, bowser(Bowser1.grafik)
 		, Willi("LKugelwilli.png")
-		, Kanone(KugelWilli.grafik)
+		, WilliR("RKugelwilli.png")
+		, Kanone(KugelWilli1.grafik)
 	{
 		set_caption("Bestes Game ever!!!");
 
 		background_image.reset(new Gosu::Image("MarioTheme.png", Gosu::IF_TILEABLE));		//Hintergrund
 	}
 
+	void drawWillis()
+	{
+		if (KugelWilli1.alive)
+		{
+			Kanone.draw_rot(KugelWilli1.fussLinks.get_x(), KugelWilli1.fussLinks.get_y() - KugelWilli1.hoehe / 2, 0, 0,
+				0.5, 0.5,
+				1, 1
+			);
+		}
+		if (KugelWilli1.alive)
+		{
+			Willi.draw_rot(kugelPtr1->hitboxLinks.get_x(), kugelPtr1->hitboxLinks.get_y(), 0, 0
+				, 0.5, 0.5,
+				1, 1);
+		}
+		if (KugelWilli2.alive)
+		{
+			Kanone.draw_rot(KugelWilli2.fussLinks.get_x(), KugelWilli2.fussLinks.get_y() - KugelWilli2.hoehe / 2, 0, 0,
+				0.5, 0.5,
+				1, 1
+			);
+		}
+		if (KugelWilli2.alive)
+		{
+			WilliR.draw_rot(kugelPtr2->hitboxLinks.get_x(), kugelPtr2->hitboxLinks.get_y(), 0, 0
+				, 0.5, 0.5,
+				1, 1);
+		}
+		if (KugelWilli3.alive)
+		{
+			Kanone.draw_rot(KugelWilli3.fussLinks.get_x(), KugelWilli3.fussLinks.get_y() - KugelWilli3.hoehe / 2, 0, 0,
+				0.5, 0.5,
+				1, 1
+			);
+		}
+		if (KugelWilli3.alive)
+		{
+			Willi.draw_rot(kugelPtr3->hitboxLinks.get_x(), kugelPtr3->hitboxLinks.get_y(), 0, 0
+				, 0.5, 0.5,
+				1, 1);
+		}
+	}
 
 	void draw() override
 	{
@@ -215,20 +276,9 @@ public:
 					0.25, 0.25);
 			}
 		}
-		if (KugelWilli.alive)
-		{
-			Kanone.draw_rot(KugelWilli.fussLinks.get_x(), KugelWilli.fussLinks.get_y() - KugelWilli.hoehe / 2, 0, 0,
-				0.5, 0.5,
-				1, 1
-			);
-		}
-		if (KugelWilli.alive)
-		{
-			Willi.draw_rot(kugelPtr->hitboxLinks.get_x(), kugelPtr->hitboxLinks.get_y(), 0, 0
-				, 0.5, 0.5,
-				1, 1);
-		}
-
+		//
+		drawWillis();
+		//
 		if(Bowser1.alive)
 		{
 			bowser.draw_rot(Bowser1.fussLinks.get_x(), Bowser1.fussLinks.get_y() - Bowser1.hoehe/2, 0, 0
@@ -376,24 +426,71 @@ public:
 	//	font1.draw_rel(to_string(timer/60), 30, 50, 1, 1, 1,1,1, 0x11111111, Gosu::AM_DEFAULT);
 	//}
 
+	unique_ptr<Projektil> KugelWillis(unique_ptr<Projektil> kP, Gegner G)
+	{
+		if (kP->move())
+		{
+			//cout << "KugelWilli bewegt zu: " << kugelPtr->hitboxLinks.get_x() << endl;
+			if (kP->hitboxLinks.get_x() <= Player1.fussRechts.get_x() && kP->hitboxRechts.get_x() >= Player1.fussLinks.get_x())
+			{
+				cout << "Treffer?" << endl;
+				if (Player1.hitboxUnten.get_y() >= kP->hitboxLinks.get_y() - 12)
+				{
+					cout << "Spieler unter Kugel" << endl;
+					if (Player1.hitboxOben.get_y() <= kP->hitboxLinks.get_y() + 13)
+					{
+						cout << "Treffer!!!" << endl;
+						Player1.hitboxOben.set_x(Player1.breite / 2);
+						Player1.hitboxUnten.set_x(Player1.breite / 2);
+						Player1.fussLinks.set_x(0);
+						Player1.fussRechts.set_x(Player1.breite);
+						Player1.hitboxOben.set_y(-Player1.hoehe + bodenEbene);
+						Player1.hitboxUnten.set_y(bodenEbene);
+						Player1.fussLinks.set_y(bodenEbene);
+						Player1.fussRechts.set_y(bodenEbene);
+						Player1.ground = bodenEbene;
+						gespiegelt = false;
+					}
+				}
+			}
+			//cout << "hoehe: " << kugelPtr->hitboxLinks.get_y();
+		}
+		else
+		{
+			Vektor2d tmp = G.hitboxUnten;
+			tmp.add_y(-G.hoehe / 2 - 10);
+			Projektil p(tmp, 5, fbreite / 2, kP->links);
+			unique_ptr<Projektil> uP = make_unique<Projektil>(p);
+			kP = move(uP);
+		}
+		return kP;
+	}
 	int wT = 0;
 	int ProjektilIndex = 0;
 	// Wird 60x pro Sekunde aufgerufen
 	void update() override
 	{
-		if (KugelWilli.alive)
+		if (KugelWilli1.alive)
+			kugelPtr1 = move(KugelWillis(move(kugelPtr1), KugelWilli1));
+		if (KugelWilli2.alive)
+			kugelPtr2 = move(KugelWillis(move(kugelPtr2), KugelWilli2));
+		if (KugelWilli3.alive)
+			kugelPtr3 = move(KugelWillis(move(kugelPtr3), KugelWilli3));
+
+		//Alte Funktion für Willis
+		/*if (KugelWilli1.alive)
 		{
-			if (kugelPtr->move())
+			if (kugelPtr1->move())
 			{
 				//cout << "KugelWilli bewegt zu: " << kugelPtr->hitboxLinks.get_x() << endl;
-				if (kugelPtr->hitboxLinks.get_x() <= Player1.fussRechts.get_x() && kugelPtr->hitboxRechts.get_x() >= Player1.fussLinks.get_x())
+				if (kugelPtr1->hitboxLinks.get_x() <= Player1.fussRechts.get_x() && kugelPtr1->hitboxRechts.get_x() >= Player1.fussLinks.get_x())
 				{
 					cout << "Treffer?" << endl;
 					//if(770 745)
-					if (Player1.hitboxUnten.get_y() >= kugelPtr->hitboxLinks.get_y() - 12) 
+					if (Player1.hitboxUnten.get_y() >= kugelPtr1->hitboxLinks.get_y() - 12)
 					{
 						cout << "Spieler unter Kugel" << endl;
-						if(Player1.hitboxOben.get_y() <= kugelPtr->hitboxLinks.get_y() + 13)
+						if(Player1.hitboxOben.get_y() <= kugelPtr1->hitboxLinks.get_y() + 13)
 						{
 							cout << "Treffer!!!" << endl; 
 							Player1.hitboxOben.set_x(Player1.breite / 2);
@@ -413,13 +510,13 @@ public:
 			}
 			else
 			{
-				Vektor2d tmp = KugelWilli.hitboxUnten;
-				tmp.add_y(-KugelWilli.hoehe / 2 - 10);
+				Vektor2d tmp = KugelWilli1.hitboxUnten;
+				tmp.add_y(-KugelWilli1.hoehe / 2 - 10);
 				Projektil p(tmp, 5, fbreite / 2, true);
 				unique_ptr<Projektil> uP = make_unique<Projektil>(p);
-				kugelPtr = move(uP);
+				kugelPtr1 = move(uP);
 			}
-		}
+		}*/
 
 		if (Player1.ground == 145 || wT >= 1)
 		{
@@ -460,13 +557,21 @@ public:
 						if (Player1.shotsVec.at(i)->height <= elem.hitboxUnten.get_y() && Player1.shotsVec.at(i)->height >= elem.hitboxOben.get_y())
 						{
 							cout << "Treffer" << elem.grafik << endl;
-							if (elem.grafik == "BowserSwag.png")
+							if (elem.name == "Bowser")
 							{
 								Bowser1.alive = false;
 							}
-							if (elem.grafik == "Kanone.png")
+							if (elem.name == "Willi1")
 							{
-								KugelWilli.alive = false;
+								KugelWilli1.alive = false;
+							}
+							if (elem.name == "Willi2")
+							{
+								KugelWilli2.alive = false;
+							}
+							if (elem.name == "Willi3")
+							{
+								KugelWilli3.alive = false;
 							}
 						}
 					}
@@ -534,12 +639,15 @@ public:
 // C++ Hauptprogramm
 int main()
 {
-	Vektor2d tempVec(0, KugelWilli.hoehe / 2);
-	Projektil kugel(KugelWilli.hitboxUnten - tempVec, 5, 1920 / 2, true);
+
+	Vektor2d tempVec(0, KugelWilli1.hoehe / 2);
+	Projektil kugel(KugelWilli1.hitboxUnten - tempVec, 5, 1920 / 2, true);
 	unique_ptr<Projektil>kugelPtr = make_unique<Projektil>(kugel);
 
-	cout << Bowser1.hitboxOben.get_y() << " . " << Bowser1.hitboxUnten.get_y() << endl;
-	cout << KugelWilli.hitboxOben.get_y() << " , " << KugelWilli.hitboxUnten.get_y() << endl;
+
+
+	//cout << Bowser1.hitboxOben.get_y() << " . " << Bowser1.hitboxUnten.get_y() << endl;
+	//cout << KugelWilli.hitboxOben.get_y() << " , " << KugelWilli.hitboxUnten.get_y() << endl;
 	bool first = true;
 	if (first)
 	{
