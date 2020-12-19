@@ -178,7 +178,7 @@ public:
 		, bullet("RBullet.png")
 		, win("winner1.png")
 		, bowser(Bowser1.grafik)
-		, Willi("RKugelwilli.png")
+		, Willi("LKugelwilli.png")
 		, Kanone(KugelWilli.grafik)
 	{
 		set_caption("Bestes Game ever!!!");
