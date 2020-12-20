@@ -183,8 +183,12 @@
     <ClCompile Include="Vektor2d.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Bowser.png" />
     <Image Include="BowserSwag.png" />
-    <Image Include="Bullet.png" />
+    <Image Include="Kanone.png" />
+    <Image Include="LBullet.png" />
+    <Image Include="RBullet.png" />
+    <Image Include="LKugelwilli.png" />
     <Image Include="MarioChar.png" />
     <Image Include="MarioCharlinks.png" />
     <Image Include="MarioTheme.png" />
@@ -193,6 +197,7 @@
     <Image Include="planet2.png" />
     <Image Include="planet3.png" />
     <Image Include="rakete.png" />
+    <Image Include="RKugelwilli.png" />
     <Image Include="Winner1.png" />
     <Image Include="Zombie.png" />
   </ItemGroup>

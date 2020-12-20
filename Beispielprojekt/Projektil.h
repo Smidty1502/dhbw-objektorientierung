@@ -14,6 +14,7 @@ public:
 	bool links = false;
 	bool fliegt = false;
 	int maxX;
+	int height;
 
 	Projektil(Vektor2d v, int speed, int range, bool l)
 	{
@@ -30,7 +31,7 @@ public:
 		{
 			this->maxX = hitboxLinks.get_x() + range;
 		}
-		
+		this->height = v.get_y();
 	}
 
 	void destroy()
