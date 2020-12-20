@@ -55,6 +55,7 @@ Gegner KugelWilli2("Willi2", PWilliMitte2, 43, PWilliHitbox2, 50, "Kanone");
 Vektor2d PWilliMitte3(1287,236);
 Vektor2d PWilliHitbox3(1265, 236);
 Gegner KugelWilli3("Willi3", PWilliMitte3, 43, PWilliHitbox3, 50, "Kanone");
+bool lastWilli1 = false, lastWilli2 = false, lastWilli3 = false;
 
 vector<Gegner> Gegnervec{Bowser1, KugelWilli1, KugelWilli2, KugelWilli3};
 Vektor2d tempVec(0, KugelWilli1.hoehe / 2 + 10);
@@ -214,7 +215,7 @@ public:
 				1, 1
 			);
 		}
-		if (KugelWilli1.alive)
+		if (KugelWilli1.alive || lastWilli1)
 		{
 			Willi.draw_rot(kugelPtr1->hitboxLinks.get_x(), kugelPtr1->hitboxLinks.get_y(), 0, 0
 				, 0.5, 0.5,
@@ -227,7 +228,7 @@ public:
 				1, 1
 			);
 		}
-		if (KugelWilli2.alive)
+		if (KugelWilli2.alive || lastWilli2)
 		{
 			WilliR.draw_rot(kugelPtr2->hitboxLinks.get_x(), kugelPtr2->hitboxLinks.get_y(), 0, 0
 				, 0.5, 0.5,
@@ -240,7 +241,7 @@ public:
 				1, 1
 			);
 		}
-		if (KugelWilli3.alive)
+		if (KugelWilli3.alive || lastWilli3)
 		{
 			Willi.draw_rot(kugelPtr3->hitboxLinks.get_x(), kugelPtr3->hitboxLinks.get_y(), 0, 0
 				, 0.5, 0.5,
@@ -461,6 +462,9 @@ public:
 		}
 		else
 		{
+			lastWilli1 = false;
+			lastWilli2 = false;
+			lastWilli3 = false;
 			Vektor2d tmp = G.hitboxUnten;
 			tmp.add_y(-G.hoehe / 2 - 10);
 			Projektil p(tmp, 5, fbreite / 2, kP->links);
@@ -474,11 +478,11 @@ public:
 	// Wird 60x pro Sekunde aufgerufen
 	void update() override
 	{
-		if (KugelWilli1.alive)
+		if (KugelWilli1.alive || lastWilli1)
 			kugelPtr1 = move(KugelWillis(move(kugelPtr1), KugelWilli1));
-		if (KugelWilli2.alive)
+		if (KugelWilli2.alive || lastWilli2)
 			kugelPtr2 = move(KugelWillis(move(kugelPtr2), KugelWilli2));
-		if (KugelWilli3.alive)
+		if (KugelWilli3.alive || lastWilli3)
 			kugelPtr3 = move(KugelWillis(move(kugelPtr3), KugelWilli3));
 
 		//Alte Funktion für Willis
@@ -522,7 +526,7 @@ public:
 			}
 		}*/
 
-		if (Player1.ground == 145 || wT >= 1)
+		if ((Player1.ground == 145 || wT >= 1) && !Bowser1.alive)
 		{
 			wT++;
 			cout << "du hast gewonnen :)" << endl;
@@ -567,14 +571,20 @@ public:
 							}
 							if (elem.name == "Willi1")
 							{
+								if(KugelWilli1.alive)
+									lastWilli1 = true;
 								KugelWilli1.alive = false;
 							}
 							if (elem.name == "Willi2")
 							{
+								if (KugelWilli2.alive)
+									lastWilli2 = true;
 								KugelWilli2.alive = false;
 							}
 							if (elem.name == "Willi3")
 							{
+								if (KugelWilli3.alive)
+									lastWilli3 = true;
 								KugelWilli3.alive = false;
 							}
 						}
@@ -599,7 +609,7 @@ public:
 
 
 		//Spieler mit Bewegung
-		if (input().down(Gosu::KB_D) && x <= (fbreite -100))
+		if (input().down(Gosu::KB_D) && Player1.fussRechts.get_x() <= fbreite)
 		{
 			Player1.hitboxOben.add_x(5);
 			Player1.hitboxUnten.add_x(5);
@@ -608,7 +618,7 @@ public:
 			gespiegelt = false;
 
 		}
-		if (input().down(Gosu::KB_A) && x >= 0)
+		if (input().down(Gosu::KB_A) && Player1.fussLinks.get_x() >= 0)
 		{
 			Player1.hitboxOben.add_x(-5);
 			Player1.hitboxUnten.add_x(-5);
