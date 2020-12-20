@@ -176,6 +176,10 @@ public:
 		background_image->draw(0, 0, 0);
 
 		//Bild einfügen
+		//Gosu::Bitmap fTime(100, 20);
+		//Gosu::draw_text(fTime, "12345", 100, 100, Gosu::Color::CYAN, "Arial", 16);
+
+
 		if (!gespiegelt)
 		{
 			bild.draw_rot(Player1.fussLinks.get_x() + (Player1.breite / 2), Player1.fussLinks.get_y(), 5.0,
